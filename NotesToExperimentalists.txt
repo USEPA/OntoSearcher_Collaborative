@@ -1,0 +1,27 @@
+Notes to Experimentalists to help with curation:
+- Consistency in naming is critical. "cell type" and "cell_type" are not the same to the computer.
+
+- Avoid using symbols or spaces whenever possible. Underscores (_) and hyphens (-) are generally safe to use, but spaces, slashes, and hashes (#) can all cause issues with various functions.
+---- For units like mL/sec, try ml_per_sec
+---- For more complicated units, you might have to use a really long string to describe the unit, you can write out "slash" or "squared" if needed, but please do not use any form of parenthesis, asterisk, carrot, or slash. Even a percent symbol can cause issues with some codes. Make a system and document it, because we can take "mL_per_--cubic-cm-of-toxin_per_minute-of-exposure--" and translate it to "mL/(cm^3/min)" if we have consistent rules.
+
+- Each column should represent one descriptive idea, meaning values and units should be in separate columns, not "hidden" in the column title. The more generic you can be with your column titles, the easier it will be to find matches. If you have compound features, something like:
+
+| aggregate_diameter_value | aggregate_diameter_value | aggregate_length_value |
+| aggregate_diameter_unit | aggregate_length_unit |
+| individual_diameter_value | individual_diameter_value | individual_length_value |
+| individual_diameter_unit | individual_length_unit |
+
+would be great. This type of format would allow us to consistently split the string to provide superclasses of individual and aggregate, each with nodes of diameter and length. These nodes would then branch into value and unit.
+
+- Generally speaking, we don't need a column to indicate if there is data in another column.
+
+- If you start your data collection with a knowledge graph in mind, you can use the examples within to help prepare your spreadsheets before you start filling them with data.
+---- As the person taking the data, you are the most qualified person to find a matching IRI, your help is appreciated.
+
+- Try to keep reported values consistent. That is to say report Length for everything, not Length for some, and averageLength or a RangeOfLengths for others. If you need to mix and match, at least provide advice for how they might be adjusted to use together (can average(RangeOfLengths) stand in for averageLength?). An EstimatedLength that combines Length, averageLength, and RangeOfLengths could also be useful to provide as an additional column.
+---- Similarly it helps to provide uncertainty for all values if you are providing it for any.
+---- Same with units
+
+
+
