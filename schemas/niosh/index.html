@@ -1,0 +1,663 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>RDF Schema Visualization</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+            h1, h2, h3 { color: #2c3e50; }
+            table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; font-weight: bold; }
+            tr:nth-child(even) { background-color: #f9f9f9; }
+            .section { margin-bottom: 30px; }
+            .visualization-link { display: inline-block; margin-top: 10px; padding: 10px 15px; 
+                                 background-color: #3498db; color: white; text-decoration: none; 
+                                 border-radius: 4px; }
+            .visualization-link:hover { background-color: #2980b9; }
+            .legend { display: flex; margin: 20px 0; }
+            .legend-item { display: flex; align-items: center; margin-right: 20px; }
+            .legend-color { width: 20px; height: 20px; margin-right: 5px; }
+            .download-link { color: #3498db; text-decoration: none; }
+            .download-link:hover { text-decoration: underline; }
+        </style>
+    </head>
+    <body>
+        <h1>RDF Schema Visualization</h1>
+        
+        <div class="section">
+            <h2>Schema Overview</h2>
+            <p>This visualization represents the schema extracted from your RDF data.</p>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #8dd3c7;"></div>
+                    <span>Classes</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #80b1d3;"></div>
+                    <span>Properties</span>
+                </div>
+            </div>
+            
+            <p>Key statistics:</p>
+            <ul>
+                <li><strong>Classes:</strong> 31</li>
+                <li><strong>Properties:</strong> 47</li>
+                <li><strong>Class hierarchy relationships:</strong> 0</li>
+                <li><strong>Property domain definitions:</strong> 47</li>
+                <li><strong>Property range definitions:</strong> 12</li>
+            </ul>
+            
+            <a href="rdf_schema.html" target="_blank" class="visualization-link">Open Interactive Schema Visualization</a>
+        </div>
+        
+        <div class="section">
+            <h2>Classes</h2>
+            <p>The following classes were identified in the schema:</p>
+            
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Class</th>
+      <th>URI</th>
+      <th>Instances</th>
+      <th>Subclasses</th>
+      <th>Properties</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SubjectOfInvestigation</td>
+      <td>https://w3id.org/biolink/vocab/SubjectOfInvestigation</td>
+      <td>430</td>
+      <td>-</td>
+      <td>RO_0000053, C93574, type, C28421, C45293, BFO_0000050, 363808001, C14419, C17177, C203602, SIO_000137</td>
+    </tr>
+    <tr>
+      <td>C156601</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C156601</td>
+      <td>86</td>
+      <td>-</td>
+      <td>SIO_000221, label, CHEMINF_000009, SIO_000391, OBI_0000679</td>
+    </tr>
+    <tr>
+      <td>C62371</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C62371</td>
+      <td>18</td>
+      <td>-</td>
+      <td>comment, RO_0000053, type, C93410, C68780, description, C48808, C90353, C43678, RO_0009003, modified, 62604006, C70848, C25392</td>
+    </tr>
+    <tr>
+      <td>C41145</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41145</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300, type, CHEMINF_000009</td>
+    </tr>
+    <tr>
+      <td>OBI_0000070</td>
+      <td>http://purl.obolibrary.org/obo/OBI_0000070</td>
+      <td>344</td>
+      <td>-</td>
+      <td>comment, label, SCDO_0000482, RO_0002242, BAO_0000208, C64542, description</td>
+    </tr>
+    <tr>
+      <td>EFO_0004338</td>
+      <td>http://www.ebi.ac.uk/efo/EFO_0004338</td>
+      <td>86</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300, type, CHEMINF_000009</td>
+    </tr>
+    <tr>
+      <td>CMO_0000096</td>
+      <td>http://purl.obolibrary.org/obo/CMO_0000096</td>
+      <td>86</td>
+      <td>-</td>
+      <td>CHEMINF_000009, OBI_0000679</td>
+    </tr>
+    <tr>
+      <td>C25334</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25334</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300, type, CHEMINF_000009</td>
+    </tr>
+    <tr>
+      <td>NPO_1812</td>
+      <td>http://purl.bioontology.org/ontology/npo#NPO_1812</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300</td>
+    </tr>
+    <tr>
+      <td>C158424</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C158424</td>
+      <td>18</td>
+      <td>-</td>
+      <td>RO_0000053, C67036, C25677, SIO_001100</td>
+    </tr>
+    <tr>
+      <td>C12919</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12919</td>
+      <td>344</td>
+      <td>-</td>
+      <td>comment, label</td>
+    </tr>
+    <tr>
+      <td>CHEBI_143130</td>
+      <td>http://purl.obolibrary.org/obo/CHEBI_143130</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000300, type</td>
+    </tr>
+    <tr>
+      <td>EFO_0000579</td>
+      <td>http://www.ebi.ac.uk/efo/EFO_0000579</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000300, NPO_1814</td>
+    </tr>
+    <tr>
+      <td>C62354</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C62354</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300</td>
+    </tr>
+    <tr>
+      <td>ENM_0000084</td>
+      <td>http://purl.enanomapper.org/onto/ENM_0000084</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000221, CHEMINF_000009, OBI_0000679, BAO_0000207</td>
+    </tr>
+    <tr>
+      <td>CHEMINF_000515</td>
+      <td>http://semanticscience.org/resource/CHEMINF_000515</td>
+      <td>18</td>
+      <td>-</td>
+      <td>OBI_0000679, BAO_0000207</td>
+    </tr>
+    <tr>
+      <td>NPO_1407</td>
+      <td>http://purl.bioontology.org/ontology/npo#NPO_1407</td>
+      <td>86</td>
+      <td>-</td>
+      <td>comment, RO_0000053, SCDO_0000482, SIO_000216</td>
+    </tr>
+    <tr>
+      <td>C161322</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C161322</td>
+      <td>86</td>
+      <td>-</td>
+      <td>type</td>
+    </tr>
+    <tr>
+      <td>C68568</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68568</td>
+      <td>430</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300</td>
+    </tr>
+    <tr>
+      <td>C53321</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C53321</td>
+      <td>796</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300, type</td>
+    </tr>
+    <tr>
+      <td>BAO_0000179</td>
+      <td>http://www.bioassayontology.org/bao#BAO_0000179</td>
+      <td>344</td>
+      <td>-</td>
+      <td>SIO_000221, type, CHEMINF_000009, SIO_000391, OBI_0000679</td>
+    </tr>
+    <tr>
+      <td>SIO_000049</td>
+      <td>http://semanticscience.org/resource/SIO_000049</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000221, CHEMINF_000009, OBI_0000679, BAO_0000207</td>
+    </tr>
+    <tr>
+      <td>C25285</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25285</td>
+      <td>36</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300, type, CHEMINF_000009, BAO_0000207</td>
+    </tr>
+    <tr>
+      <td>modified_form</td>
+      <td>https://w3id.org/biolink/vocab/ChemicalOrGeneOrGeneProductFormOrVariantEnum#modified_form</td>
+      <td>18</td>
+      <td>-</td>
+      <td>NPO_1962, CHMO_0001652, NPO_1883</td>
+    </tr>
+    <tr>
+      <td>ENM_9000001</td>
+      <td>http://purl.enanomapper.org/onto/ENM_9000001</td>
+      <td>18</td>
+      <td>-</td>
+      <td>RO_0000053, CHEMINF_000009</td>
+    </tr>
+    <tr>
+      <td>EFO_0000487</td>
+      <td>http://www.ebi.ac.uk/efo/EFO_0000487</td>
+      <td>430</td>
+      <td>-</td>
+      <td>comment, RO_0000053, C25330, RO_0002242, C93410</td>
+    </tr>
+    <tr>
+      <td>C38290</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C38290</td>
+      <td>86</td>
+      <td>-</td>
+      <td>228863009</td>
+    </tr>
+    <tr>
+      <td>CHMO_0002354</td>
+      <td>http://purl.obolibrary.org/obo/CHMO_0002354</td>
+      <td>18</td>
+      <td>-</td>
+      <td>SIO_000300</td>
+    </tr>
+    <tr>
+      <td>ExO_0000057</td>
+      <td>http://purl.obolibrary.org/obo/ExO_0000057</td>
+      <td>86</td>
+      <td>-</td>
+      <td>RO_0000053, 228863009</td>
+    </tr>
+    <tr>
+      <td>C25488</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25488</td>
+      <td>430</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300, CHEMINF_000009</td>
+    </tr>
+    <tr>
+      <td>C25330</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25330</td>
+      <td>172</td>
+      <td>-</td>
+      <td>SIO_000221, SIO_000300, C29844, 229784001, C200447</td>
+    </tr>
+  </tbody>
+</table>
+            
+            <p><a href="classes.csv" class="download-link">Download as CSV</a></p>
+        </div>
+        
+        <div class="section">
+            <h2>Properties</h2>
+            <p>The following properties were identified in the schema:</p>
+            
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Property</th>
+      <th>URI</th>
+      <th>Domains</th>
+      <th>Ranges</th>
+      <th>Usage Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C67036</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C67036</td>
+      <td>C158424</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>SIO_000216</td>
+      <td>http://semanticscience.org/resource/SIO_000216</td>
+      <td>NPO_1407</td>
+      <td>C156601</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>228863009</td>
+      <td>http://snomed.info/id/228863009</td>
+      <td>ExO_0000057, C38290</td>
+      <td>-</td>
+      <td>172</td>
+    </tr>
+    <tr>
+      <td>C70848</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70848</td>
+      <td>C62371</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>RO_0002242</td>
+      <td>http://purl.obolibrary.org/obo/RO_0002242</td>
+      <td>OBI_0000070, EFO_0000487</td>
+      <td>EFO_0000487, ExO_0000057, C38290</td>
+      <td>602</td>
+    </tr>
+    <tr>
+      <td>SIO_000137</td>
+      <td>http://semanticscience.org/resource/SIO_000137</td>
+      <td>SubjectOfInvestigation</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>62604006</td>
+      <td>http://snomed.info/id/62604006</td>
+      <td>C62371</td>
+      <td>CHEBI_143130</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>C17177</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17177</td>
+      <td>SubjectOfInvestigation</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>C200447</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C200447</td>
+      <td>C25330</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>SCDO_0000482</td>
+      <td>http://purl.obolibrary.org/obo/SCDO_0000482</td>
+      <td>OBI_0000070, NPO_1407</td>
+      <td>SubjectOfInvestigation</td>
+      <td>430</td>
+    </tr>
+    <tr>
+      <td>label</td>
+      <td>http://www.w3.org/2000/01/rdf-schema#label</td>
+      <td>C12919, OBI_0000070, C156601</td>
+      <td>-</td>
+      <td>852</td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td>http://purl.org/dc/terms/description</td>
+      <td>OBI_0000070, C62371</td>
+      <td>-</td>
+      <td>362</td>
+    </tr>
+    <tr>
+      <td>C25330</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25330</td>
+      <td>EFO_0000487</td>
+      <td>-</td>
+      <td>344</td>
+    </tr>
+    <tr>
+      <td>RO_0000053</td>
+      <td>http://purl.obolibrary.org/obo/RO_0000053</td>
+      <td>C158424, EFO_0000487, ExO_0000057, NPO_1407, ENM_9000001, SubjectOfInvestigation, C62371</td>
+      <td>C25334, C25488, C68568, C25330, EFO_0000487, C25285, CHMO_0002354, CMO_0000096, NPO_1812, SIO_000049, C158424, C41145, ENM_9000001, CHEMINF_000515, C62354, ENM_0000084</td>
+      <td>1420</td>
+    </tr>
+    <tr>
+      <td>RO_0009003</td>
+      <td>http://purl.obolibrary.org/obo/RO_0009003</td>
+      <td>C62371</td>
+      <td>EFO_0000579</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>CHMO_0001652</td>
+      <td>http://purl.obolibrary.org/obo/CHMO_0001652</td>
+      <td>modified_form</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>OBI_0000679</td>
+      <td>http://purl.obolibrary.org/obo/OBI_0000679</td>
+      <td>CMO_0000096, BAO_0000179, C156601, ENM_0000084, SIO_000049, CHEMINF_000515</td>
+      <td>-</td>
+      <td>570</td>
+    </tr>
+    <tr>
+      <td>C25392</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25392</td>
+      <td>C62371</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>C25677</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25677</td>
+      <td>C158424</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>C203602</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C203602</td>
+      <td>SubjectOfInvestigation</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>NPO_1814</td>
+      <td>http://purl.bioontology.org/ontology/npo#NPO_1814</td>
+      <td>EFO_0000579</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>SIO_000300</td>
+      <td>http://semanticscience.org/resource/SIO_000300</td>
+      <td>C68568, C25488, C53321, C25330, EFO_0004338, C41145, EFO_0000579, NPO_1812, C25285, CHEBI_143130, CHMO_0002354, C62354, C25334</td>
+      <td>-</td>
+      <td>2334</td>
+    </tr>
+    <tr>
+      <td>C90353</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C90353</td>
+      <td>C62371</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>C14419</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14419</td>
+      <td>SubjectOfInvestigation</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>BAO_0000208</td>
+      <td>http://www.bioassayontology.org/bao#BAO_0000208</td>
+      <td>OBI_0000070</td>
+      <td>BAO_0000179</td>
+      <td>344</td>
+    </tr>
+    <tr>
+      <td>229784001</td>
+      <td>http://snomed.info/id/229784001</td>
+      <td>C25330</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>C68780</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68780</td>
+      <td>C62371</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>CHEMINF_000009</td>
+      <td>http://semanticscience.org/resource/CHEMINF_000009</td>
+      <td>BAO_0000179, C156601, CMO_0000096, EFO_0004338, C25488, SIO_000049, C25334, C25285, ENM_9000001, C41145, ENM_0000084</td>
+      <td>C53321</td>
+      <td>796</td>
+    </tr>
+    <tr>
+      <td>BAO_0000207</td>
+      <td>http://www.bioassayontology.org/bao#BAO_0000207</td>
+      <td>CHEMINF_000515, ENM_0000084, SIO_000049, C25285</td>
+      <td>-</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <td>SIO_000391</td>
+      <td>http://semanticscience.org/resource/SIO_000391</td>
+      <td>BAO_0000179, C156601</td>
+      <td>-</td>
+      <td>430</td>
+    </tr>
+    <tr>
+      <td>C28421</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C28421</td>
+      <td>SubjectOfInvestigation</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>363808001</td>
+      <td>http://snomed.info/id/363808001</td>
+      <td>SubjectOfInvestigation</td>
+      <td>EFO_0004338</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>C48808</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48808</td>
+      <td>C62371</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>C93410</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93410</td>
+      <td>EFO_0000487, C62371</td>
+      <td>-</td>
+      <td>448</td>
+    </tr>
+    <tr>
+      <td>modified</td>
+      <td>http://purl.org/dc/terms/modified</td>
+      <td>C62371</td>
+      <td>modified_form</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>NPO_1962</td>
+      <td>http://purl.bioontology.org/ontology/npo#NPO_1962</td>
+      <td>modified_form</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>C45293</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C45293</td>
+      <td>SubjectOfInvestigation</td>
+      <td>-</td>
+      <td>172</td>
+    </tr>
+    <tr>
+      <td>C93574</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93574</td>
+      <td>SubjectOfInvestigation</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>C43678</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43678</td>
+      <td>C62371</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>BFO_0000050</td>
+      <td>http://purl.obolibrary.org/obo/BFO_0000050</td>
+      <td>SubjectOfInvestigation</td>
+      <td>C161322</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>NPO_1883</td>
+      <td>http://purl.bioontology.org/ontology/npo#NPO_1883</td>
+      <td>modified_form</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>SIO_001100</td>
+      <td>http://semanticscience.org/resource/SIO_001100</td>
+      <td>C158424</td>
+      <td>-</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>SIO_000221</td>
+      <td>http://semanticscience.org/resource/SIO_000221</td>
+      <td>C53321, C156601, C68568, BAO_0000179, C25334, SIO_000049, EFO_0004338, C25330, C25488, C62354, C25285, ENM_0000084, NPO_1812, C41145</td>
+      <td>-</td>
+      <td>1936</td>
+    </tr>
+    <tr>
+      <td>comment</td>
+      <td>http://www.w3.org/2000/01/rdf-schema#comment</td>
+      <td>C12919, OBI_0000070, EFO_0000487, C62371, NPO_1407</td>
+      <td>-</td>
+      <td>878</td>
+    </tr>
+    <tr>
+      <td>C64542</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C64542</td>
+      <td>OBI_0000070</td>
+      <td>C12919</td>
+      <td>344</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td>http://purl.org/dc/terms/type</td>
+      <td>C53321, C62371, C161322, SubjectOfInvestigation, BAO_0000179, EFO_0004338, C41145, C25285, C25334, CHEBI_143130</td>
+      <td>-</td>
+      <td>1850</td>
+    </tr>
+    <tr>
+      <td>C29844</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C29844</td>
+      <td>C25330</td>
+      <td>-</td>
+      <td>86</td>
+    </tr>
+  </tbody>
+</table>
+            
+            <p><a href="properties.csv" class="download-link">Download as CSV</a></p>
+        </div>
+        
+        <div class="section">
+            <h2>How to Read This Schema</h2>
+            <p>The interactive visualization shows the relationships between classes and properties in your RDF data:</p>
+            <ul>
+                <li><strong>Boxes (green):</strong> Represent classes</li>
+                <li><strong>Circles (blue):</strong> Represent properties</li>
+                <li><strong>Solid arrows:</strong> Indicate class hierarchy relationships (subClassOf)</li>
+                <li><strong>Dashed arrows from class to property:</strong> Indicate that the property has that class as its domain</li>
+                <li><strong>Dashed arrows from property to class:</strong> Indicate that the property has that class as its range</li>
+            </ul>
+            <p>You can:</p>
+            <ul>
+                <li>Drag nodes to rearrange the visualization</li>
+                <li>Zoom in/out using mouse wheel</li>
+                <li>Click on a node to highlight its connections</li>
+                <li>Use the physics controls to adjust the layout</li>
+            </ul>
+        </div>
+    </body>
+    </html>
+    

@@ -1,0 +1,70 @@
+Property,URI,Domains,Ranges,Usage Count
+C43320,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43320,C48471,-,129
+C93400,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93400,"OBI_0000070, C84280, NPO_174",-,22392
+C25674,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25674,ERO_0000833,-,10
+NPO_1824,http://purl.bioontology.org/ontology/npo#NPO_1824,NPO_199,-,374
+C70848,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70848,NPO_199,-,374
+ENM_8000049,http://purl.enanomapper.org/onto/ENM_8000049,NPO_199,-,374
+NPO_1616,http://purl.bioontology.org/ontology/npo#NPO_1616,NPO_174,-,16
+C60765,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C60765,C48471,-,129
+C41145,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41145,NPO_199,-,374
+IAO_0000630,http://purl.obolibrary.org/obo/IAO_0000630,C48471,-,129
+OBI_0000070,http://purl.obolibrary.org/obo/OBI_0000070,"NPO_1680, BAO_0000179, ERO_0000833",-,107936
+C25412,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25412,C48471,-,129
+C25480,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25480,BAO_0000179,-,24693
+C99287,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C99287,NPO_199,-,372
+C42857,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42857,"BAO_0000179, nan, ENM_0000092",-,28433
+C41147,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41147,nan,-,374
+C25334,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25334,NPO_199,-,374
+NPO_1812,http://purl.bioontology.org/ontology/npo#NPO_1812,NPO_199,-,374
+C43415,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43415,C48471,-,129
+label,http://www.w3.org/2000/01/rdf-schema#label,-,-,638
+hasExactSynonym,http://www.geneontology.org/formats/oboInOwl#hasExactSynonym,-,-,13
+NPO_274,http://purl.bioontology.org/ontology/npo#NPO_274,NPO_199,-,374
+C101685,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C101685,NPO_199,-,374
+OBI_0002110,http://purl.obolibrary.org/obo/OBI_0002110,"OBI_0000070, NPO_1853, C48471, NPO_199",-,176420
+NPO_1345,http://purl.bioontology.org/ontology/npo#NPO_1345,NPO_199,-,374
+C42614,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614,"BAO_0000179, NPO_1680, OBI_0000070, NPO_174, NPO_199, ERO_0000833, C63495",-,130957
+CHEBI_143130,http://purl.obolibrary.org/obo/CHEBI_143130,C84280,-,47
+P90,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P90,-,-,173
+C42853,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42853,"BAO_0000179, nan, ENM_0000092",-,28433
+identifier,http://purl.org/dc/terms/identifier,"NPO_1680, BAO_0000179, OBI_0000070, C84280, NPO_1853, NPO_174, NPO_199, C63495, ERO_0000833",-,284602
+NPO_1808,http://purl.bioontology.org/ontology/npo#NPO_1808,NPO_199,-,374
+CHEMINF_000247,http://semanticscience.org/resource/CHEMINF_000247,NPO_199,-,374
+description,http://purl.org/dc/elements/1.1/description,"nan, ENM_0000092",-,5236
+C43530,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43530,NPO_199,-,374
+C25704,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25704,NPO_1680,-,83233
+C48807,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48807,-,-,374
+birnlex_2395,http://bioontology.org/projects/ontologies/birnlex#birnlex_2395,C48471,-,129
+data_1147,http://edamontology.org/data_1147,ERO_0000833,-,10
+C42774,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42774,C48471,-,129
+C164481,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C164481,C48471,-,129
+C25365,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25365,"NPO_199, NPO_1853",-,629
+NPO_1823,http://purl.bioontology.org/ontology/npo#NPO_1823,NPO_199,-,374
+CHMO_0001301,http://purl.obolibrary.org/obo/CHMO_0001301,-,-,374
+value,http://www.w3.org/1999/02/22-rdf-syntax-ns#value,"NPO_1680, BAO_0000179, C63495, C84280",-,111267
+C25164,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25164,-,-,374
+CHEMINF_000568,http://semanticscience.org/resource/CHEMINF_000568,NPO_199,-,374
+ECSO_00001188,http://purl.dataone.org/odo/ECSO_00001188,ERO_0000833,-,10
+C71478,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C71478,"BAO_0000179, nan, ENM_0000092",-,28433
+ENM_8000292,http://purl.enanomapper.org/onto/ENM_8000292,NPO_199,-,1122
+NPO_1915,http://purl.bioontology.org/ontology/npo#NPO_1915,NPO_199,-,1122
+C29848,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C29848,C48471,-,129
+C45293,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C45293,ERO_0000833,-,10
+NPO_1853,http://purl.bioontology.org/ontology/npo#NPO_1853,"OBI_0000070, NPO_199, C63495",-,23005
+CHEMINF_000446,http://semanticscience.org/resource/CHEMINF_000446,NPO_199,-,374
+ENM_0000089,http://purl.enanomapper.org/onto/ENM_0000089,NPO_199,-,374
+birnlex_2394,http://bioontology.org/projects/ontologies/birnlex#birnlex_2394,C48471,-,129
+data_1052,http://edamontology.org/data_1052,ERO_0000833,-,10
+MS_1002034,http://purl.obolibrary.org/obo/MS_1002034,C48471,-,129
+C68553,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68553,"NPO_1680, BAO_0000179, C63495, nan, C84280, ENM_0000092",-,112389
+C25372,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25372,OBI_0000070,-,22329
+C40976,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C40976,C48471,-,129
+OBI_0000052,http://purl.obolibrary.org/obo/OBI_0000052,ERO_0000833,-,10
+C124136,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C124136,NPO_199,-,374
+C37917,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C37917,"nan, ENM_0000092",-,1122
+data_2909,http://edamontology.org/data_2909,ERO_0000833,-,10
+hasRelatedSynonym,http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym,-,-,9
+C61408,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C61408,NPO_199,-,374
+C54191,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C54191,"BAO_0000179, nan, ENM_0000092",-,28807
+C71460,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C71460,"nan, C84280, ENM_0000092",-,3413

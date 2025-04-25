@@ -1,0 +1,13 @@
+Class,URI,Instances,Subclasses,Properties
+nan,nan,727,-,"C42853, C68553, C71478, C54191, C42857, C41147, C71460, description, C37917"
+NPO_1853,http://purl.bioontology.org/ontology/npo#NPO_1853,255,-,"identifier, OBI_0002110, C25365"
+C48471,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48471,129,-,"OBI_0002110, C40976, C60765, IAO_0000630, C42774, C164481, MS_1002034, C43320, C29848, birnlex_2394, birnlex_2395, C25412, C43415"
+C84280,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C84280,47,-,"identifier, value, C68553, C93400, C71460, CHEBI_143130"
+NPO_199,http://purl.bioontology.org/ontology/npo#NPO_199,374,-,"identifier, C42614, C43530, ENM_8000292, OBI_0002110, NPO_1853, C25365, NPO_1824, ENM_8000049, NPO_1823, C61408, NPO_274, NPO_1915, C25334, CHEMINF_000446, NPO_1345, C41145, C99287, NPO_1808, ENM_0000089, CHEMINF_000247, NPO_1812, C70848, C124136, CHEMINF_000568, C101685"
+NPO_1680,http://purl.bioontology.org/ontology/npo#NPO_1680,83233,NPO_1155,"identifier, C42614, value, OBI_0000070, C68553, C25704"
+OBI_0000070,http://purl.obolibrary.org/obo/OBI_0000070,22329,"CHMO_0000690, CHMO_0000404, CHMO_0002393, ENM_8000275, CHMO_0000538","identifier, C42614, C25372, OBI_0002110, NPO_1853, C93400"
+NPO_174,http://purl.bioontology.org/ontology/npo#NPO_174,16,-,"identifier, C42614, C93400, NPO_1616"
+BAO_0000179,http://www.bioassayontology.org/bao#BAO_0000179,24693,-,"identifier, C42853, C42614, value, OBI_0000070, C68553, C25480, C71478, C54191, C42857"
+ENM_0000092,http://purl.enanomapper.org/onto/ENM_0000092,21,-,"C42853, C68553, C71478, C54191, C42857, C71460, description, C37917"
+ERO_0000833,http://purl.obolibrary.org/obo/ERO_0000833,10,-,"identifier, C42614, OBI_0000070, C25674, ECSO_00001188, OBI_0000052, data_2909, C45293, data_1052, data_1147"
+C63495,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63495,302,-,"identifier, C42614, value, C68553, NPO_1853"

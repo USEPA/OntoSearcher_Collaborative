@@ -1,0 +1,533 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Complex RDF Schema Analysis</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+                h1, h2, h3 { color: #2c3e50; }
+                table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { background-color: #f2f2f2; font-weight: bold; }
+                tr:nth-child(even) { background-color: #f9f9f9; }
+                .section { margin-bottom: 30px; }
+                pre { background-color: #f8f8f8; padding: 10px; border-radius: 5px; overflow-x: auto; }
+                .note { background-color: #ffffcc; padding: 10px; border-left: 4px solid #ffeb3b; }
+                .card { border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 15px; }
+                .card-title { font-weight: bold; margin-bottom: 10px; }
+                .badge { display: inline-block; padding: 3px 8px; background-color: #3498db; color: white; border-radius: 10px; font-size: 12px; margin-right: 5px; }
+            </style>
+        </head>
+        <body>
+            <h1>Complex RDF Schema Analysis</h1>
+            
+            <div class="section">
+                <h2>Overview</h2>
+                <table>
+                    <tr><th>Metric</th><th>Count</th></tr>
+        
+                    <tr><td>Total Triples</td><td>1369675</td></tr>
+                    <tr><td>Classes</td><td>12</td></tr>
+                    <tr><td>Properties</td><td>70</td></tr>
+                    <tr><td>Blank Nodes</td><td>158579</td></tr>
+                    <tr><td>Nodebags</td><td>158569</td></tr>
+                    <tr><td>Primary Entities</td><td>855</td></tr>
+                    <tr><td>Secondary Entities</td><td>39196</td></tr>
+                    <tr><td>Link Entities</td><td>92499</td></tr>
+                    <tr><td>Property Table Patterns</td><td>18</td></tr>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>Classes</h2>
+                <table>
+                    <tr><th>Class</th><th>URI</th><th>Instances</th></tr>
+        
+                    <tr>
+                        <td>C48471</td>
+                        <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48471</td>
+                        <td>129</td>
+                    </tr>
+            
+                    <tr>
+                        <td>C63495</td>
+                        <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63495</td>
+                        <td>302</td>
+                    </tr>
+            
+                    <tr>
+                        <td>C84280</td>
+                        <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C84280</td>
+                        <td>47</td>
+                    </tr>
+            
+                    <tr>
+                        <td>NPO_1680</td>
+                        <td>http://purl.bioontology.org/ontology/npo#NPO_1680</td>
+                        <td>83233</td>
+                    </tr>
+            
+                    <tr>
+                        <td>NPO_174</td>
+                        <td>http://purl.bioontology.org/ontology/npo#NPO_174</td>
+                        <td>16</td>
+                    </tr>
+            
+                    <tr>
+                        <td>NPO_1853</td>
+                        <td>http://purl.bioontology.org/ontology/npo#NPO_1853</td>
+                        <td>255</td>
+                    </tr>
+            
+                    <tr>
+                        <td>NPO_199</td>
+                        <td>http://purl.bioontology.org/ontology/npo#NPO_199</td>
+                        <td>374</td>
+                    </tr>
+            
+                    <tr>
+                        <td>ENM_0000092</td>
+                        <td>http://purl.enanomapper.org/onto/ENM_0000092</td>
+                        <td>21</td>
+                    </tr>
+            
+                    <tr>
+                        <td>ERO_0000833</td>
+                        <td>http://purl.obolibrary.org/obo/ERO_0000833</td>
+                        <td>10</td>
+                    </tr>
+            
+                    <tr>
+                        <td>OBI_0000070</td>
+                        <td>http://purl.obolibrary.org/obo/OBI_0000070</td>
+                        <td>22329</td>
+                    </tr>
+            
+                    <tr>
+                        <td>BAO_0000179</td>
+                        <td>http://www.bioassayontology.org/bao#BAO_0000179</td>
+                        <td>24693</td>
+                    </tr>
+            
+                    <tr>
+                        <td>nan</td>
+                        <td>nan</td>
+                        <td>0</td>
+                    </tr>
+            
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>Nodebags</h2>
+                <p>Nodebags are blank nodes that group related properties together:</p>
+        
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab139671</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">OBI_0000070: 15202</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1016/j.scitotenv.2012.12.036</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>778</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab43378</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">NPO_1853: 9286</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1021/acs.est.5b00654</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>1</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab156558</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">OBI_0000070: 8179</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1039/c4en00096j</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>102</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab38142</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">NPO_1853: 693</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1016/j.scitotenv.2017.09.050</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>2</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab12097</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">C93400: 15304</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>no publication</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>1</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab94493</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">OBI_0000070: 49453</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1002/etc.1858</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>130</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab116720</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">OBI_0000070: 69458</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1002/etc.2529</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>124</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab107172</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">OBI_0000070: 60864</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1016/j.taap.2007.12.010</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>104</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab122271</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">OBI_0000070: 74453</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1021/acs.est.7b04037</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>298</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Nodebag: n3d2b8872fea346de9aef2e2a54012a8ab23828</div>
+                    <p><strong>Referenced by:</strong> 
+            <span class="badge">NPO_1853: 20583</span>
+                    </p>
+                    <p><strong>Properties:</strong></p>
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+            
+                        <tr>
+                            <td>OBI_0002110</td>
+                            <td>10.1186/s12989-017-0230-4</td>
+                        </tr>
+                
+                        <tr>
+                            <td>identifier</td>
+                            <td>1</td>
+                        </tr>
+                
+                    </table>
+                </div>
+            <p><em>Note: Only showing 10 of 158569 nodebags.</em></p>
+            </div>
+            
+            <div class="section">
+                <h2>Property Table Patterns</h2>
+                <p>These patterns represent groups of properties that frequently appear together, suggesting they form a logical table:</p>
+        
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C25704_C42614_C68553_and_4_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">type</span><span class="badge">C68553</span><span class="badge">C25704</span><span class="badge">C42614</span><span class="badge">OBI_0000070</span><span class="badge">value</span><span class="badge">identifier</span>
+                    </p>
+                    <p><strong>Used by 83233 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C25480_C42614_C42853_and_8_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">C71478</span><span class="badge">type</span><span class="badge">C68553</span><span class="badge">C42614</span><span class="badge">OBI_0000070</span><span class="badge">C25480</span><span class="badge">value</span><span class="badge">C42857</span><span class="badge">C54191</span><span class="badge">C42853</span><span class="badge">identifier</span>
+                    </p>
+                    <p><strong>Used by 24693 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C25372_C42614_C93400_and_4_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">C93400</span><span class="badge">type</span><span class="badge">NPO_1853</span><span class="badge">OBI_0002110</span><span class="badge">C25372</span><span class="badge">C42614</span><span class="badge">identifier</span>
+                    </p>
+                    <p><strong>Used by 22329 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C101685_C124136_C25334_and_24_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">NPO_1824</span><span class="badge">C70848</span><span class="badge">ENM_8000049</span><span class="badge">C41145</span><span class="badge">C99287</span><span class="badge">C25334</span><span class="badge">NPO_1812</span><span class="badge">NPO_274</span><span class="badge">C101685</span><span class="badge">OBI_0002110</span><span class="badge">NPO_1345</span><span class="badge">C42614</span><span class="badge">identifier</span><span class="badge">NPO_1808</span><span class="badge">CHEMINF_000247</span><span class="badge">type</span><span class="badge">C43530</span><span class="badge">C25365</span><span class="badge">NPO_1823</span><span class="badge">CHEMINF_000568</span><span class="badge">NPO_1915</span><span class="badge">ENM_8000292</span><span class="badge">NPO_1853</span><span class="badge">CHEMINF_000446</span><span class="badge">ENM_0000089</span><span class="badge">C124136</span><span class="badge">C61408</span>
+                    </p>
+                    <p><strong>Used by 372 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C42614_C68553_NPO_1853_and_3_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">type</span><span class="badge">NPO_1853</span><span class="badge">C68553</span><span class="badge">C42614</span><span class="badge">value</span><span class="badge">identifier</span>
+                    </p>
+                    <p><strong>Used by 302 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C164481_C25412_C29848_and_11_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">C43320</span><span class="badge">type</span><span class="badge">C29848</span><span class="badge">OBI_0002110</span><span class="badge">birnlex_2394</span><span class="badge">MS_1002034</span><span class="badge">C40976</span><span class="badge">birnlex_2395</span><span class="badge">C60765</span><span class="badge">IAO_0000630</span><span class="badge">C25412</span><span class="badge">C164481</span><span class="badge">C42774</span><span class="badge">C43415</span>
+                    </p>
+                    <p><strong>Used by 129 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C25365_OBI_0002110_identifier_and_1_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">type</span><span class="badge">OBI_0002110</span><span class="badge">C25365</span><span class="badge">identifier</span>
+                    </p>
+                    <p><strong>Used by 255 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_label_subClassOf</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">label</span><span class="badge">subClassOf</span>
+                    </p>
+                    <p><strong>Used by 336 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C68553_C71460_C93400_and_4_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">C93400</span><span class="badge">type</span><span class="badge">C68553</span><span class="badge">identifier</span><span class="badge">CHEBI_143130</span><span class="badge">value</span><span class="badge">C71460</span>
+                    </p>
+                    <p><strong>Used by 47 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_P90_label</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">label</span><span class="badge">P90</span>
+                    </p>
+                    <p><strong>Used by 12 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C42614_C93400_NPO_1616_and_2_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">C93400</span><span class="badge">type</span><span class="badge">NPO_1616</span><span class="badge">C42614</span><span class="badge">identifier</span>
+                    </p>
+                    <p><strong>Used by 16 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_P90_subClassOf</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">P90</span><span class="badge">subClassOf</span>
+                    </p>
+                    <p><strong>Used by 83 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C25674_C42614_C45293_and_8_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">data_1147</span><span class="badge">C45293</span><span class="badge">type</span><span class="badge">C25674</span><span class="badge">data_1052</span><span class="badge">OBI_0000052</span><span class="badge">C42614</span><span class="badge">OBI_0000070</span><span class="badge">data_2909</span><span class="badge">ECSO_00001188</span><span class="badge">identifier</span>
+                    </p>
+                    <p><strong>Used by 10 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_hasRelatedSynonym_subClassOf</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">hasRelatedSynonym</span><span class="badge">subClassOf</span>
+                    </p>
+                    <p><strong>Used by 3 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_P90_label_subClassOf</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">label</span><span class="badge">P90</span><span class="badge">subClassOf</span>
+                    </p>
+                    <p><strong>Used by 5 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_C101685_C124136_C25334_and_23_more</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">NPO_1824</span><span class="badge">C70848</span><span class="badge">ENM_8000049</span><span class="badge">C41145</span><span class="badge">C25334</span><span class="badge">NPO_1812</span><span class="badge">NPO_274</span><span class="badge">C101685</span><span class="badge">OBI_0002110</span><span class="badge">NPO_1345</span><span class="badge">C42614</span><span class="badge">identifier</span><span class="badge">NPO_1808</span><span class="badge">CHEMINF_000247</span><span class="badge">type</span><span class="badge">C43530</span><span class="badge">C25365</span><span class="badge">NPO_1823</span><span class="badge">CHEMINF_000568</span><span class="badge">NPO_1915</span><span class="badge">ENM_8000292</span><span class="badge">NPO_1853</span><span class="badge">CHEMINF_000446</span><span class="badge">ENM_0000089</span><span class="badge">C124136</span><span class="badge">C61408</span>
+                    </p>
+                    <p><strong>Used by 2 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_hasExactSynonym_label</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">label</span><span class="badge">hasExactSynonym</span>
+                    </p>
+                    <p><strong>Used by 2 entities</strong></p>
+                </div>
+            
+                <div class="card">
+                    <div class="card-title">Pattern: PropertyGroup_hasExactSynonym_subClassOf</div>
+                    <p><strong>Properties:</strong> 
+            <span class="badge">subClassOf</span><span class="badge">hasExactSynonym</span>
+                    </p>
+                    <p><strong>Used by 3 entities</strong></p>
+                </div>
+            
+            </div>
+            
+            <div class="section">
+                <h2>Schema Diagram Explanation</h2>
+                <p>The RDF schema represents a complex graph with the following key elements:</p>
+                <ul>
+                    <li><strong>Primary Entities:</strong> Main objects in the data model with high connectivity</li>
+                    <li><strong>Secondary Entities:</strong> Supporting objects with fewer connections</li>
+                    <li><strong>Link Entities:</strong> Objects that primarily serve to connect other entities</li>
+                    <li><strong>Nodebags:</strong> Blank nodes that group related properties (similar to embedded documents or complex attributes)</li>
+                    <li><strong>Property Tables:</strong> Sets of properties that commonly appear together, suggesting a database table pattern</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>SPARQL Query Patterns</h2>
+                <h3>Querying Nodebags:</h3>
+                <pre>
+SELECT ?entity ?prop1Value ?prop2Value
+WHERE {
+    ?entity ?reference ?nodebag .
+    ?nodebag &lt;property1&gt; ?prop1Value ;
+             &lt;property2&gt; ?prop2Value .
+}
+                </pre>
+                
+                <h3>Finding Primary Entities with their Related Secondary Entities:</h3>
+                <pre>
+SELECT ?primary ?secondary ?relationship
+WHERE {
+    ?primary a &lt;PrimaryClass&gt; .
+    ?secondary a &lt;SecondaryClass&gt; .
+    ?primary ?relationship ?secondary .
+}
+                </pre>
+            </div>
+        </body>
+        </html>
+        

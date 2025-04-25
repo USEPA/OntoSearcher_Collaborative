@@ -1,0 +1,48 @@
+Property,URI,Domains,Ranges,Usage Count
+C67036,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C67036,C158424,-,18
+SIO_000216,http://semanticscience.org/resource/SIO_000216,NPO_1407,C156601,86
+228863009,http://snomed.info/id/228863009,"ExO_0000057, C38290",-,172
+C70848,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70848,C62371,-,18
+RO_0002242,http://purl.obolibrary.org/obo/RO_0002242,"OBI_0000070, EFO_0000487","EFO_0000487, ExO_0000057, C38290",602
+SIO_000137,http://semanticscience.org/resource/SIO_000137,SubjectOfInvestigation,-,86
+62604006,http://snomed.info/id/62604006,C62371,CHEBI_143130,18
+C17177,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17177,SubjectOfInvestigation,-,86
+C200447,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C200447,C25330,-,86
+SCDO_0000482,http://purl.obolibrary.org/obo/SCDO_0000482,"OBI_0000070, NPO_1407",SubjectOfInvestigation,430
+label,http://www.w3.org/2000/01/rdf-schema#label,"C12919, OBI_0000070, C156601",-,852
+description,http://purl.org/dc/terms/description,"OBI_0000070, C62371",-,362
+C25330,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25330,EFO_0000487,-,344
+RO_0000053,http://purl.obolibrary.org/obo/RO_0000053,"C158424, EFO_0000487, ExO_0000057, NPO_1407, ENM_9000001, SubjectOfInvestigation, C62371","C25334, C25488, C68568, C25330, EFO_0000487, C25285, CHMO_0002354, CMO_0000096, NPO_1812, SIO_000049, C158424, C41145, ENM_9000001, CHEMINF_000515, C62354, ENM_0000084",1420
+RO_0009003,http://purl.obolibrary.org/obo/RO_0009003,C62371,EFO_0000579,18
+CHMO_0001652,http://purl.obolibrary.org/obo/CHMO_0001652,modified_form,-,18
+OBI_0000679,http://purl.obolibrary.org/obo/OBI_0000679,"CMO_0000096, BAO_0000179, C156601, ENM_0000084, SIO_000049, CHEMINF_000515",-,570
+C25392,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25392,C62371,-,18
+C25677,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25677,C158424,-,18
+C203602,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C203602,SubjectOfInvestigation,-,86
+NPO_1814,http://purl.bioontology.org/ontology/npo#NPO_1814,EFO_0000579,-,18
+SIO_000300,http://semanticscience.org/resource/SIO_000300,"C68568, C25488, C53321, C25330, EFO_0004338, C41145, EFO_0000579, NPO_1812, C25285, CHEBI_143130, CHMO_0002354, C62354, C25334",-,2334
+C90353,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C90353,C62371,-,18
+C14419,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14419,SubjectOfInvestigation,-,86
+BAO_0000208,http://www.bioassayontology.org/bao#BAO_0000208,OBI_0000070,BAO_0000179,344
+229784001,http://snomed.info/id/229784001,C25330,-,86
+C68780,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68780,C62371,-,18
+CHEMINF_000009,http://semanticscience.org/resource/CHEMINF_000009,"BAO_0000179, C156601, CMO_0000096, EFO_0004338, C25488, SIO_000049, C25334, C25285, ENM_9000001, C41145, ENM_0000084",C53321,796
+BAO_0000207,http://www.bioassayontology.org/bao#BAO_0000207,"CHEMINF_000515, ENM_0000084, SIO_000049, C25285",-,90
+SIO_000391,http://semanticscience.org/resource/SIO_000391,"BAO_0000179, C156601",-,430
+C28421,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C28421,SubjectOfInvestigation,-,86
+363808001,http://snomed.info/id/363808001,SubjectOfInvestigation,EFO_0004338,86
+C48808,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48808,C62371,-,18
+C93410,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93410,"EFO_0000487, C62371",-,448
+modified,http://purl.org/dc/terms/modified,C62371,modified_form,18
+NPO_1962,http://purl.bioontology.org/ontology/npo#NPO_1962,modified_form,-,18
+C45293,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C45293,SubjectOfInvestigation,-,172
+C93574,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93574,SubjectOfInvestigation,-,86
+C43678,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43678,C62371,-,18
+BFO_0000050,http://purl.obolibrary.org/obo/BFO_0000050,SubjectOfInvestigation,C161322,86
+NPO_1883,http://purl.bioontology.org/ontology/npo#NPO_1883,modified_form,-,18
+SIO_001100,http://semanticscience.org/resource/SIO_001100,C158424,-,18
+SIO_000221,http://semanticscience.org/resource/SIO_000221,"C53321, C156601, C68568, BAO_0000179, C25334, SIO_000049, EFO_0004338, C25330, C25488, C62354, C25285, ENM_0000084, NPO_1812, C41145",-,1936
+comment,http://www.w3.org/2000/01/rdf-schema#comment,"C12919, OBI_0000070, EFO_0000487, C62371, NPO_1407",-,878
+C64542,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C64542,OBI_0000070,C12919,344
+type,http://purl.org/dc/terms/type,"C53321, C62371, C161322, SubjectOfInvestigation, BAO_0000179, EFO_0004338, C41145, C25285, C25334, CHEBI_143130",-,1850
+C29844,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C29844,C25330,-,86

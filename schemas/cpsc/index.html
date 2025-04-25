@@ -1,0 +1,215 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>RDF Schema Visualization</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+            h1, h2, h3 { color: #2c3e50; }
+            table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; font-weight: bold; }
+            tr:nth-child(even) { background-color: #f9f9f9; }
+            .section { margin-bottom: 30px; }
+            .visualization-link { display: inline-block; margin-top: 10px; padding: 10px 15px; 
+                                 background-color: #3498db; color: white; text-decoration: none; 
+                                 border-radius: 4px; }
+            .visualization-link:hover { background-color: #2980b9; }
+            .legend { display: flex; margin: 20px 0; }
+            .legend-item { display: flex; align-items: center; margin-right: 20px; }
+            .legend-color { width: 20px; height: 20px; margin-right: 5px; }
+            .download-link { color: #3498db; text-decoration: none; }
+            .download-link:hover { text-decoration: underline; }
+        </style>
+    </head>
+    <body>
+        <h1>RDF Schema Visualization</h1>
+        
+        <div class="section">
+            <h2>Schema Overview</h2>
+            <p>This visualization represents the schema extracted from your RDF data.</p>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #8dd3c7;"></div>
+                    <span>Classes</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #80b1d3;"></div>
+                    <span>Properties</span>
+                </div>
+            </div>
+            
+            <p>Key statistics:</p>
+            <ul>
+                <li><strong>Classes:</strong> 1</li>
+                <li><strong>Properties:</strong> 13</li>
+                <li><strong>Class hierarchy relationships:</strong> 0</li>
+                <li><strong>Property domain definitions:</strong> 9</li>
+                <li><strong>Property range definitions:</strong> 0</li>
+            </ul>
+            
+            <a href="rdf_schema.html" target="_blank" class="visualization-link">Open Interactive Schema Visualization</a>
+        </div>
+        
+        <div class="section">
+            <h2>Classes</h2>
+            <p>The following classes were identified in the schema:</p>
+            
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Class</th>
+      <th>URI</th>
+      <th>Instances</th>
+      <th>Subclasses</th>
+      <th>Properties</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NPO_199</td>
+      <td>http://purl.bioontology.org/ontology/npo#NPO_199</td>
+      <td>2785</td>
+      <td>-</td>
+      <td>C93401, C25464, C43530, NPO_1808, C0034030, MESH_D012306, C93400, description, CHMO_0000101</td>
+    </tr>
+  </tbody>
+</table>
+            
+            <p><a href="classes.csv" class="download-link">Download as CSV</a></p>
+        </div>
+        
+        <div class="section">
+            <h2>Properties</h2>
+            <p>The following properties were identified in the schema:</p>
+            
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Property</th>
+      <th>URI</th>
+      <th>Domains</th>
+      <th>Ranges</th>
+      <th>Usage Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C25464</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25464</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>2778</td>
+    </tr>
+    <tr>
+      <td>NPO_1808</td>
+      <td>http://purl.bioontology.org/ontology/npo#NPO_1808</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>2785</td>
+    </tr>
+    <tr>
+      <td>C93400</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93400</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>2785</td>
+    </tr>
+    <tr>
+      <td>C0036524</td>
+      <td>http://sbmi.uth.tmc.edu/ontology/ochv#C0036524</td>
+      <td>-</td>
+      <td>-</td>
+      <td>294</td>
+    </tr>
+    <tr>
+      <td>EFO_0000487</td>
+      <td>http://www.ebi.ac.uk/efo/EFO_0000487</td>
+      <td>-</td>
+      <td>-</td>
+      <td>294</td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td>http://purl.org/dc/terms/description</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>5792</td>
+    </tr>
+    <tr>
+      <td>MESH_D012306</td>
+      <td>http://purl.obolibrary.org/obo/MESH_D012306</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>3075</td>
+    </tr>
+    <tr>
+      <td>label</td>
+      <td>http://www.w3.org/2000/01/rdf-schema#label</td>
+      <td>-</td>
+      <td>-</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>C93401</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93401</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>2785</td>
+    </tr>
+    <tr>
+      <td>CHMO_0000101</td>
+      <td>http://purl.obolibrary.org/obo/CHMO_0000101</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <td>C43530</td>
+      <td>http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43530</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>2785</td>
+    </tr>
+    <tr>
+      <td>C0034030</td>
+      <td>http://sbmi.uth.tmc.edu/ontology/ochv#C0034030</td>
+      <td>NPO_199</td>
+      <td>-</td>
+      <td>3075</td>
+    </tr>
+    <tr>
+      <td>NPO_1338</td>
+      <td>http://purl.bioontology.org/ontology/npo#NPO_1338</td>
+      <td>-</td>
+      <td>-</td>
+      <td>293</td>
+    </tr>
+  </tbody>
+</table>
+            
+            <p><a href="properties.csv" class="download-link">Download as CSV</a></p>
+        </div>
+        
+        <div class="section">
+            <h2>How to Read This Schema</h2>
+            <p>The interactive visualization shows the relationships between classes and properties in your RDF data:</p>
+            <ul>
+                <li><strong>Boxes (green):</strong> Represent classes</li>
+                <li><strong>Circles (blue):</strong> Represent properties</li>
+                <li><strong>Solid arrows:</strong> Indicate class hierarchy relationships (subClassOf)</li>
+                <li><strong>Dashed arrows from class to property:</strong> Indicate that the property has that class as its domain</li>
+                <li><strong>Dashed arrows from property to class:</strong> Indicate that the property has that class as its range</li>
+            </ul>
+            <p>You can:</p>
+            <ul>
+                <li>Drag nodes to rearrange the visualization</li>
+                <li>Zoom in/out using mouse wheel</li>
+                <li>Click on a node to highlight its connections</li>
+                <li>Use the physics controls to adjust the layout</li>
+            </ul>
+        </div>
+    </body>
+    </html>
+    

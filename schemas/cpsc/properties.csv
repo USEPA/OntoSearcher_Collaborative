@@ -1,0 +1,14 @@
+Property,URI,Domains,Ranges,Usage Count
+C25464,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25464,NPO_199,-,2778
+NPO_1808,http://purl.bioontology.org/ontology/npo#NPO_1808,NPO_199,-,2785
+C93400,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93400,NPO_199,-,2785
+C0036524,http://sbmi.uth.tmc.edu/ontology/ochv#C0036524,-,-,294
+EFO_0000487,http://www.ebi.ac.uk/efo/EFO_0000487,-,-,294
+description,http://purl.org/dc/terms/description,NPO_199,-,5792
+MESH_D012306,http://purl.obolibrary.org/obo/MESH_D012306,NPO_199,-,3075
+label,http://www.w3.org/2000/01/rdf-schema#label,-,-,6
+C93401,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93401,NPO_199,-,2785
+CHMO_0000101,http://purl.obolibrary.org/obo/CHMO_0000101,NPO_199,-,64
+C43530,http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43530,NPO_199,-,2785
+C0034030,http://sbmi.uth.tmc.edu/ontology/ochv#C0034030,NPO_199,-,3075
+NPO_1338,http://purl.bioontology.org/ontology/npo#NPO_1338,-,-,293
