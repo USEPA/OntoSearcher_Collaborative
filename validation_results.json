@@ -1,0 +1,185 @@
+{
+  "rdf_analysis": {
+    "total_triples": 1369675,
+    "unique_subjects": 290789,
+    "unique_predicates": 71,
+    "unique_objects": 1124,
+    "entity_counts": {
+      "parameters": 582631,
+      "result": 271623,
+      "assay": 156303,
+      "material": 11592,
+      "additive": 1812,
+      "publication": 1806,
+      "medium": 1020,
+      "contam": 329,
+      "molecularresult": 110,
+      "materialfg": 80
+    },
+    "top_relations": {
+      "http://purl.org/dc/terms/identifier": 284602,
+      "http://purl.obolibrary.org/obo/OBI_0002110": 176420,
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": 132136,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42614": 130957,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68553": 112389,
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": 111267,
+      "http://purl.obolibrary.org/obo/OBI_0000070": 107936,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25704": 83233,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C54191": 28807,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42853": 28433,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C42857": 28433,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C71478": 28433,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25480": 24693,
+      "http://purl.bioontology.org/ontology/npo#NPO_1853": 23005,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C93400": 22392,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25372": 22329,
+      "http://purl.org/dc/elements/1.1/description": 5236,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C71460": 3413,
+      "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C37917": 1122,
+      "http://purl.bioontology.org/ontology/npo#NPO_1915": 1122
+    }
+  },
+  "networkx_validation": {
+    "basic_stats": {
+      "nodes": 291129,
+      "edges": 405551,
+      "is_directed": true,
+      "is_multigraph": true
+    },
+    "node_analysis": {
+      "node_types": {
+        "unknown": 158420,
+        "subject": 131647,
+        "object": 1062
+      },
+      "entity_types": {
+        "unknown": 159741,
+        "parameters": 83233,
+        "result": 24693,
+        "assay": 22329,
+        "material": 374,
+        "additive": 302,
+        "medium": 255,
+        "publication": 129,
+        "contam": 47,
+        "materialfg": 16,
+        "molecularresult": 10
+      }
+    },
+    "edge_analysis": {
+      "edge_types": {
+        "parameters_to_unknown": 241322,
+        "assay_to_unknown": 88279,
+        "result_to_unknown": 66593,
+        "material_to_unknown": 6792,
+        "additive_to_unknown": 990,
+        "unknown_to_unknown": 789,
+        "medium_to_unknown": 403,
+        "contam_to_unknown": 163,
+        "publication_to_unknown": 133,
+        "materialfg_to_unknown": 47
+      },
+      "relation_types": {
+        "type": 131409,
+        "OBI_0000070": 107936,
+        "C42614": 56117,
+        "C68553": 40107,
+        "NPO_1853": 23005,
+        "C93400": 22392,
+        "C25704": 8142,
+        "C25372": 6234,
+        "C71478": 3172,
+        "ENM_8000292": 1122
+      }
+    },
+    "connectivity": {
+      "is_weakly_connected": false,
+      "num_components": 22,
+      "largest_component_size": 291048,
+      "connectivity_ratio": 0.9997217728223571
+    },
+    "degree_stats": {
+      "avg_in_degree": 1.39302852000316,
+      "avg_out_degree": 1.39302852000316,
+      "max_in_degree": 83234,
+      "max_out_degree": 20
+    }
+  },
+  "heterodata_validation": {
+    "basic_stats": {
+      "num_node_types": 10,
+      "num_edge_types": 0,
+      "total_nodes": 131388,
+      "total_edges": 0
+    },
+    "node_types": [
+      "result",
+      "parameters",
+      "assay",
+      "material",
+      "additive",
+      "publication",
+      "contam",
+      "medium",
+      "molecularresult",
+      "materialfg"
+    ],
+    "edge_types": [],
+    "node_stats": {
+      "result": {
+        "num_nodes": 24693,
+        "feature_dim": 64
+      },
+      "parameters": {
+        "num_nodes": 83233,
+        "feature_dim": 64
+      },
+      "assay": {
+        "num_nodes": 22329,
+        "feature_dim": 64
+      },
+      "material": {
+        "num_nodes": 374,
+        "feature_dim": 64
+      },
+      "additive": {
+        "num_nodes": 302,
+        "feature_dim": 64
+      },
+      "publication": {
+        "num_nodes": 129,
+        "feature_dim": 64
+      },
+      "contam": {
+        "num_nodes": 47,
+        "feature_dim": 64
+      },
+      "medium": {
+        "num_nodes": 255,
+        "feature_dim": 64
+      },
+      "molecularresult": {
+        "num_nodes": 10,
+        "feature_dim": 64
+      },
+      "materialfg": {
+        "num_nodes": 16,
+        "feature_dim": 64
+      }
+    },
+    "edge_stats": {},
+    "validation_issues": [
+      "Node type 'result' has no edges",
+      "Node type 'parameters' has no edges",
+      "Node type 'assay' has no edges",
+      "Node type 'material' has no edges",
+      "Node type 'additive' has no edges",
+      "Node type 'publication' has no edges",
+      "Node type 'contam' has no edges",
+      "Node type 'medium' has no edges",
+      "Node type 'molecularresult' has no edges",
+      "Node type 'materialfg' has no edges"
+    ],
+    "is_valid": false
+  }
+}

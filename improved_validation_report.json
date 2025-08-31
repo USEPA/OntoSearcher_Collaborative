@@ -1,0 +1,17 @@
+{
+  "basic_stats": {
+    "total_node_types": 12,
+    "total_edge_types": 89,
+    "total_nodes": 291006,
+    "total_edges": 387962
+  },
+  "node_type_categories": {
+    "entity_types": 7,
+    "concept_types": 4,
+    "other_types": 1
+  },
+  "connectivity": {
+    "avg_edges_per_node": 1.3331752609911822,
+    "edge_type_diversity": 89
+  }
+}
