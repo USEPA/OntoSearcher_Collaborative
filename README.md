@@ -25,6 +25,10 @@ OntoSearcher_Collaborative/
 │   │   ├── rdf_to_rgcn_analysis.py # RDF to R-GCN pipeline
 │   │   ├── query_specific_node.py # Node querying utilities
 │   │   └── test_node_analyzer.py # Node attribute testing
+│   ├── rag/                      # Nanotoxicology RAG (OpenAI or local LLM)
+│   │   ├── llm_backends.py      # OpenAI + Transformers (Llama) backends
+│   │   ├── nanotoxicology_rag.py # RAG logic (Neo4j + LLM)
+│   │   └── cli.py               # CLI: ask, interactive
 │   └── converters/               # Data conversion utilities
 │       ├── improved_rdf_hetero_converter.py # RDF to HeteroData
 │       └── rdf_to_networkx_focused.py # RDF to NetworkX
@@ -133,6 +137,36 @@ hypotheses = analyzer.generate_scientific_hypotheses('material', min_confidence=
 analyzer.create_prediction_report('link_prediction_report.html')
 ```
 
+### 5. Nanotoxicology RAG CLI (local first: Ollama, or OpenAI)
+
+The same RAG logic as `notebooks/experiments/llmexperiment.ipynb` is available as a CLI. **For local use (no cloud, no heavy Python model loading)**, the default is **Ollama**: data stays on your machine and you avoid transformers/torch/protobuf issues.
+
+**Recommended local setup:**
+1. Install [Ollama](https://ollama.com) and start it.
+2. Pull a small model: `ollama pull tinyllama` (or `ollama pull llama2` for better quality if you have RAM).
+3. From the repo root (with Neo4j running and the graph loaded):
+
+```bash
+# Single question (uses Ollama + tinyllama by default)
+python -m src.rag.cli ask "What consumer products contain silver nanoparticles?"
+
+# Interactive Q&A
+python -m src.rag.cli interactive
+
+# Use a different Ollama model
+python -m src.rag.cli ask "What products contain silver?" --model llama2
+```
+
+**Requirements for local (Ollama)**: Only Neo4j + Ollama; no `OPENAI_API_KEY` and no `torch`/`transformers` in Python for the default path.
+
+**Using OpenAI (sends data to the cloud):**
+```bash
+export OPENAI_API_KEY=your_key
+python -m src.rag.cli ask "What products contain silver?" --backend openai
+```
+
+**Optional dependencies**: For `--backend transformers` (load a Hugging Face model in-process), install `pip install -r requirements-rag.txt`. Not required for Ollama.
+
 ## Data Sources
 
 ### EPA Nanotechnology Knowledge Base (NKB)
@@ -163,6 +197,13 @@ pip install torch torch_geometric rdflib networkx pandas scikit-learn matplotlib
 # For PyTorch Geometric, follow: https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html
 ```
 
+**For the Nanotoxicology RAG CLI (local, no cloud):**
+```bash
+pip install neo4j
+# Install Ollama from https://ollama.com and run: ollama pull tinyllama
+```
+No `torch` or `transformers` are required for the default RAG path (Ollama). For `--backend openai` add `pip install openai` and set `OPENAI_API_KEY`.
+
 ## Quick Start
 
 ### 1. Convert RDF to Graph
@@ -189,7 +230,36 @@ python src/gnn/link_prediction_analysis.py
 ```
 Creates: `link_prediction_report.html`
 
-## Model Performance
+### 5. Run the Nanotoxicology RAG CLI (question answering over the knowledge graph)
+
+RAG runs **locally by default** (Ollama); no API key and no large Python model loading.
+
+1. **Install Ollama** from [ollama.com](https://ollama.com) and start it (Ollama runs in the background once installed).
+2. **Pull a small model** (from any terminal):
+   ```bash
+   ollama pull tinyllama
+   ```
+   For better quality if you have enough RAM: `ollama pull llama2`
+3. **Ensure Neo4j is running** with the nanotoxicology graph loaded (as used in the LLM experiment notebook).
+4. **From the repo root**, run the CLI:
+   ```bash
+   # Single question (default: Ollama + tinyllama)
+   python -m src.rag.cli ask "What consumer products contain silver nanoparticles?"
+
+   # Interactive Q&A (type exit to quit)
+   python -m src.rag.cli interactive
+
+   # Use a different Ollama model
+   python -m src.rag.cli ask "What products contain silver?" --model llama2
+   ```
+
+**Optional:** Use OpenAI instead (sends data to the cloud; requires `OPENAI_API_KEY`):
+```bash
+export OPENAI_API_KEY=your_key
+python -m src.rag.cli ask "What products contain silver?" --backend openai
+```
+
+**Troubleshooting:** If you see "Ollama request failed", ensure Ollama is running and you have pulled a model (`ollama pull tinyllama`). For Neo4j connection errors, check `--neo4j-uri`, `--neo4j-user`, and `--neo4j-password` (or set `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`).
 
 | Metric | Value |
 |--------|-------|
