@@ -43,8 +43,9 @@ try:
     from sklearn.preprocessing import LabelEncoder
     TORCH_AVAILABLE = True
     print("✓ PyTorch Geometric available")
-except ImportError:
+except ImportError as e:
     print("⚠️  PyTorch Geometric not available. Install with: pip install torch torch-geometric")
+    print(f"   (ImportError: {e})")
     TORCH_AVAILABLE = False
 
 class RDFToNetworkXConverter:
@@ -528,12 +529,20 @@ class NetworkXToHeteroData:
         return validation_report
 
 def main():
-    """Main pipeline function"""
+    """Main pipeline function. Run from repo root so networkx_graph.pkl is created there."""
+    import os
     print("=" * 80)
     print("RDF → NetworkX → HeteroData Pipeline")
     print("=" * 80)
     
-    rdf_file = "/Users/pranavsingh/NNIOntoSearcherEPA/mappings/NKB_RDF_V3.ttl"
+    # RDF path: prefer repo root / mappings / NKB_RDF_V3.ttl (so it works from any machine)
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    default_rdf = os.path.join(repo_root, "mappings", "NKB_RDF_V3.ttl")
+    rdf_file = default_rdf if os.path.isfile(default_rdf) else "/Users/pranavsingh/NNIOntoSearcherEPA/mappings/NKB_RDF_V3.ttl"
+    if not os.path.isfile(rdf_file):
+        print(f"ERROR: RDF file not found: {rdf_file}")
+        print("Put your .ttl file in mappings/NKB_RDF_V3.ttl or set rdf_file in this script.")
+        return
     
     # Step 1: Load and convert RDF to NetworkX
     print("\\nStep 1: RDF to NetworkX Conversion")
@@ -555,6 +564,21 @@ def main():
     # Validate NetworkX graph
     nx_validation = converter.validate_networkx_graph()
     
+    # Save NetworkX graph now so it exists even if Step 2 (HeteroData) fails (e.g. PyG missing)
+    import os
+    cwd = os.getcwd()
+    nx_pkl_path = os.path.join(cwd, "networkx_graph.pkl")
+    with open(nx_pkl_path, "wb") as f:
+        pickle.dump(nx_graph, f)
+    print(f"✓ NetworkX graph saved to {nx_pkl_path}")
+    
+    if not TORCH_AVAILABLE:
+        print("\n⚠️  Skipping Step 2 (HeteroData): PyTorch Geometric is not installed.")
+        print("   Install it in this env with: pip install torch-geometric")
+        print("   Then run the improved converter to build improved_hetero_data.pt and node URIs:")
+        print("   python src/converters/improved_rdf_hetero_converter.py")
+        return
+    
     # Step 2: Convert NetworkX to HeteroData
     print("\\nStep 2: NetworkX to HeteroData Conversion")
     print("-" * 40)
@@ -566,17 +590,12 @@ def main():
         # Validate HeteroData
         hetero_validation = hetero_converter.validate_heterodata()
         
-        # Save results
+        # Save results (networkx already saved above)
         print("\\nStep 3: Saving Results")
         print("-" * 40)
         
-        # Save NetworkX graph
-        with open('networkx_graph.pkl', 'wb') as f:
-            pickle.dump(nx_graph, f)
-        print("✓ NetworkX graph saved to networkx_graph.pkl")
-        
         # Save HeteroData
-        torch.save(hetero_data, 'hetero_data.pt')
+        torch.save(hetero_data, os.path.join(cwd, "hetero_data.pt"))
         print("✓ HeteroData saved to hetero_data.pt")
         
         # Save validation reports
@@ -586,7 +605,7 @@ def main():
             'heterodata_validation': hetero_validation
         }
         
-        with open('validation_results.json', 'w') as f:
+        with open(os.path.join(cwd, "validation_results.json"), 'w') as f:
             json.dump(results, f, indent=2, default=str)
         print("✓ Validation results saved to validation_results.json")
         
@@ -600,6 +619,8 @@ def main():
         
     else:
         print("❌ Failed to create HeteroData")
+        print("   You still have networkx_graph.pkl. Run the improved converter (requires PyG):")
+        print("   python src/converters/improved_rdf_hetero_converter.py")
 
 if __name__ == "__main__":
     main()

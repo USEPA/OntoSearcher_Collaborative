@@ -1,0 +1,38 @@
+# OntoSearcher Collaborative — production dependencies
+# Install (from repo root):
+#   pip install -r requirements.txt
+#
+# Optional extras:
+#   pip install -r requirements.txt --upgrade
+#   # OpenAI cloud LLM: already included below
+#   # Hugging Face in-process LLM: uncomment [transformers] block
+#   # Graph ML (R-GCN / link-prediction eval): install torch stack via conda
+#   #   conda install pytorch pytorch-geometric scikit-learn -c pytorch -c pyg
+#   #   (Mac ARM: prefer conda; pip torch can segfault on load)
+
+# ---------- Core (RDF + GraphRAG / Neo4j) ----------
+neo4j>=5.0.0
+rdflib>=6.0.0
+numpy>=1.23.0
+matplotlib>=3.7.0
+
+# ---------- GraphRAG LLM backends ----------
+# Default path: Ollama (no extra Python package; needs `ollama serve` + a pulled model)
+openai>=1.0.0
+
+# Optional in-process Hugging Face (uncomment if using --backend transformers)
+# torch>=2.0.0
+# transformers>=4.36.0
+# accelerate>=0.25.0
+
+# ---------- Paper prediction report / light ML ----------
+pandas>=1.3.0
+
+# ---------- Link-prediction evaluation (R-GCN / ComplEx baselines) ----------
+# Prefer conda for torch + torch_geometric on Mac ARM.
+# After conda install, these pip packages are still useful:
+scikit-learn>=1.3.0
+scipy>=1.10.0
+
+# torch>=2.0.0
+# torch-geometric>=2.4.0

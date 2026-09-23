@@ -13,6 +13,7 @@ The RDF structure is:
 """
 
 import torch
+import os
 import networkx as nx
 from torch_geometric.data import HeteroData
 from collections import defaultdict, Counter
@@ -406,11 +407,25 @@ class ImprovedRDFToHeteroData:
         return validation_report
 
 def main():
-    """Test the improved converter"""
+    """Test the improved converter. Run from repo root so outputs go to repo root."""
+    import argparse
+    ap = argparse.ArgumentParser(description="RDF/NetworkX to Improved HeteroData (writes improved_hetero_data.pt and improved_hetero_data_node_uris.pkl)")
+    ap.add_argument("--nx-graph", type=str, default="networkx_graph.pkl", help="Path to networkx_graph.pkl (from rdf_to_networkx_focused.py)")
+    ap.add_argument("--output-dir", type=str, default=".", help="Directory to write .pt and .pkl files (default: current dir)")
+    args = ap.parse_args()
+    out_dir = args.output_dir
+    nx_path = args.nx_graph
+
     print("=== Testing Improved RDF to HeteroData Converter ===")
     
+    if not os.path.isfile(nx_path):
+        print(f"ERROR: NetworkX graph not found: {nx_path}")
+        print("Run first: python src/converters/rdf_to_networkx_focused.py")
+        print("That creates networkx_graph.pkl in the current directory.")
+        return
+    
     # Load NetworkX graph
-    with open('networkx_graph.pkl', 'rb') as f:
+    with open(nx_path, 'rb') as f:
         nx_graph = pickle.load(f)
     
     # Create improved converter
@@ -423,12 +438,26 @@ def main():
     validation_report = converter.validate_comprehensive_heterodata()
     
     # Save results
-    torch.save(hetero_data, 'improved_hetero_data.pt')
-    print("\\n✓ Improved HeteroData saved to improved_hetero_data.pt")
+    os.makedirs(out_dir, exist_ok=True)
+    hetero_path = os.path.join(out_dir, 'improved_hetero_data.pt')
+    pkl_path = os.path.join(out_dir, 'improved_hetero_data_node_uris.pkl')
+    report_path = os.path.join(out_dir, 'improved_validation_report.json')
     
-    with open('improved_validation_report.json', 'w') as f:
+    torch.save(hetero_data, hetero_path)
+    print(f"\n✓ Improved HeteroData saved to {hetero_path}")
+    
+    # Save node index -> URI for downstream label resolution (e.g. paper_prediction_report.py)
+    node_uris = {}
+    for node_type in converter.reverse_mappings:
+        n = len(converter.reverse_mappings[node_type])
+        node_uris[node_type] = [str(converter.reverse_mappings[node_type][idx]) for idx in range(n)]
+    with open(pkl_path, 'wb') as f:
+        pickle.dump(node_uris, f)
+    print(f"✓ Node index->URI mapping saved to {pkl_path}")
+    
+    with open(report_path, 'w') as f:
         json.dump(validation_report, f, indent=2, default=str)
-    print("✓ Validation report saved to improved_validation_report.json")
+    print(f"✓ Validation report saved to {report_path}")
 
 if __name__ == "__main__":
     main()

@@ -13,7 +13,7 @@ Recommended local setup (no cloud, no heavy Python deps):
   # Use a different local model (after: ollama pull llama2)
   python -m src.rag.cli ask "..." --model llama2
 
-Cloud (sends data to OpenAI):
+Cloud via OpenAI:
   python -m src.rag.cli ask "..." --backend openai
   (requires OPENAI_API_KEY)
 """
