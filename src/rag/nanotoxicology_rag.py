@@ -74,95 +74,148 @@ class NanotoxicologyRAG:
             print(f"\nQuery returned {len(results)} results")
         return results
 
-    # ---------- Query helpers (same as notebook) ----------
+    # ---------- Cross-graph query templates ----------
+    # Every source graph is searched the same way: any node in that graph
+    # (no entity-type filter) whose *text* properties contain the term.
+    # Property lists are the string fields actually present on each graph;
+    # numeric-only measurement fields (SIO_000300, value, years) are omitted
+    # so a term cannot accidentally match a number.
+    GRAPHS = ("CPSC", "NIOSH", "NKB")
+    _TEXT_PROPS = {
+        "CPSC": [
+            "NPO_1808", "C93401", "C43530", "C93400", "C25464",
+            "description", "CHMO_0000101", "label",
+        ],
+        "NIOSH": [
+            "label", "description", "comment", "type", "C93410",
+            "hasRelatedSynonym", "hasExactSynonym", "P90",
+        ],
+        "NKB": [
+            "label", "NPO_1808", "C43530", "C42614", "C25365", "C25704",
+            "C25480", "C60765", "C42774", "IAO_0000630", "P90",
+            "hasExactSynonym", "C25372", "C68553",
+        ],
+    }
 
-    # Case-insensitive substring match; empty/very short terms are skipped by callers.
-    _CPSC_WHERE = """
-        WHERE 'CPSC' IN product.graphs
+    @staticmethod
+    def _prop_match(alias: str, props: List[str]) -> str:
+        return " OR\n          ".join(
+            f"({alias}.{p} IS NOT NULL AND toLower(toString({alias}.{p})) "
+            f"CONTAINS toLower($search_term))"
+            for p in props
+        )
+
+    def _graph_where(self, alias: str, graph: str) -> str:
+        """WHERE fragment: any entity type in ``graph`` matching on text props."""
+        match = self._prop_match(alias, self._TEXT_PROPS[graph])
+        return f"""
+        WHERE '{graph}' IN {alias}.graphs
         AND (
           $search_term IS NULL OR $search_term = '' OR
-          (product.NPO_1808 IS NOT NULL AND toLower(product.NPO_1808) CONTAINS toLower($search_term)) OR
-          (product.C93401 IS NOT NULL AND toLower(product.C93401) CONTAINS toLower($search_term)) OR
-          (product.C43530 IS NOT NULL AND toLower(product.C43530) CONTAINS toLower($search_term)) OR
-          (product.C93400 IS NOT NULL AND toLower(product.C93400) CONTAINS toLower($search_term))
+          {match}
         )
-    """
+        """
 
-    def query_cpsc_products(self, search_term: Optional[str] = None, limit: int = 200) -> List[Dict]:
+    def query_graph(self, graph: str, search_term: Optional[str] = None,
+                    limit: int = 200) -> List[Dict]:
+        """Return matching nodes of *any* entity type in one source graph."""
+        where = self._graph_where("n", graph)
         query = f"""
-        MATCH (product)
-        {self._CPSC_WHERE}
+        MATCH (n)
+        {where}
         RETURN
-          product.uri AS uri,
-          product.NPO_1808 AS nanomaterial,
-          product.C43530 AS manufacturer,
-          product.C93401 AS product_type,
-          product.C25464 AS country,
-          product.C93400 AS category
+          n.uri AS uri,
+          labels(n) AS node_labels,
+          coalesce(n.label, n.NPO_1808, n.description, n.C93410, n.C42614, n.type) AS name,
+          n.NPO_1808 AS nanomaterial,
+          n.C43530 AS manufacturer,
+          n.C93401 AS product_type,
+          n.C25464 AS country,
+          n.C93400 AS category,
+          n.description AS description,
+          n.comment AS comment,
+          n.type AS type,
+          n.C93410 AS material_id,
+          n.C25372 AS assay_type,
+          n.C42614 AS measurement,
+          n.C25365 AS medium,
+          n.SIO_000300 AS value,
+          n.SIO_000221 AS unit
         LIMIT $limit
         """
         return self.run_query(query, {"search_term": search_term, "limit": limit})
+
+    def count_graph(self, graph: str, search_term: Optional[str] = None) -> int:
+        """Exact match count for one graph (all entity types; not LIMIT-capped)."""
+        where = self._graph_where("n", graph)
+        rows = self.run_query(
+            f"MATCH (n) {where} RETURN count(n) AS c",
+            {"search_term": search_term},
+        )
+        return int(rows[0]["c"]) if rows else 0
+
+    def count_graph_by_label(self, graph: str, search_term: Optional[str] = None,
+                             limit: int = 15) -> List[Dict]:
+        """How many matches per Neo4j label (entity type) in one graph."""
+        where = self._graph_where("n", graph)
+        query = f"""
+        MATCH (n)
+        {where}
+        UNWIND labels(n) AS l
+        WITH l WHERE l <> 'Resource'
+        RETURN l AS entity_type, count(*) AS count
+        ORDER BY count DESC LIMIT $limit
+        """
+        return self.run_query(query, {"search_term": search_term, "limit": limit})
+
+    def distinct_graph_field(self, graph: str, search_term: str, prop: str) -> List[str]:
+        """Distinct values of ``prop`` among matches in one graph."""
+        if not re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", prop):
+            return []
+        where = self._graph_where("n", graph)
+        query = f"""
+        MATCH (n)
+        {where}
+        AND n.{prop} IS NOT NULL
+        RETURN DISTINCT n.{prop} AS value
+        """
+        return [r["value"] for r in self.run_query(query, {"search_term": search_term})]
+
+    # Back-compat wrappers used by the eval harness / older callers.
+    def query_cpsc_products(self, search_term: Optional[str] = None, limit: int = 200) -> List[Dict]:
+        return self.query_graph("CPSC", search_term, limit)
 
     def count_cpsc_products(self, search_term: Optional[str] = None) -> int:
-        """Total number of CPSC products matching the term (case-insensitive).
-        Enables accurate answers to 'how many ...' questions (not capped by LIMIT).
-        """
-        query = f"MATCH (product) {self._CPSC_WHERE} RETURN count(product) AS c"
-        rows = self.run_query(query, {"search_term": search_term})
-        return int(rows[0]["c"]) if rows else 0
-
-    _NIOSH_WHERE = """
-        WHERE 'NIOSH' IN assay.graphs
-        AND 'Assay' IN labels(assay)
-        AND (
-          $search_term IS NULL OR $search_term = '' OR
-          (assay.label IS NOT NULL AND toLower(assay.label) CONTAINS toLower($search_term)) OR
-          (assay.description IS NOT NULL AND toLower(assay.description) CONTAINS toLower($search_term))
-        )
-    """
+        return self.count_graph("CPSC", search_term)
 
     def query_niosh_assays(self, search_term: Optional[str] = None, limit: int = 200) -> List[Dict]:
-        query = f"""
-        MATCH (assay)
-        {self._NIOSH_WHERE}
-        RETURN
-          assay.uri AS uri,
-          assay.label AS name,
-          assay.description AS description,
-          assay.SIO_000300 AS value,
-          assay.SIO_000221 AS unit
-        LIMIT $limit
-        """
-        return self.run_query(query, {"search_term": search_term, "limit": limit})
+        rows = self.query_graph("NIOSH", search_term, limit)
+        for r in rows:
+            r.setdefault("name", r.get("name") or r.get("type") or r.get("material_id"))
+        return rows
 
     def count_niosh_assays(self, search_term: Optional[str] = None) -> int:
-        """Total number of NIOSH assays matching the term (case-insensitive)."""
-        query = f"MATCH (assay) {self._NIOSH_WHERE} RETURN count(assay) AS c"
-        rows = self.run_query(query, {"search_term": search_term})
-        return int(rows[0]["c"]) if rows else 0
+        return self.count_graph("NIOSH", search_term)
 
-    # ---------- distinct-value helpers (accurate lists, not LIMIT-capped) ----------
+    def query_nkb_materials(self, search_term: Optional[str] = None, limit: int = 200) -> List[Dict]:
+        return self.query_graph("NKB", search_term, limit)
+
+    def count_nkb_matches(self, search_term: Optional[str] = None) -> int:
+        return self.count_graph("NKB", search_term)
 
     def distinct_cpsc_field(self, search_term: str, field: str) -> List[str]:
         """Distinct values of a CPSC property (e.g. C43530 manufacturers) for a term."""
         allowed = {"manufacturer": "C43530", "product_type": "C93401",
-                   "category": "C93400", "nanomaterial": "NPO_1808", "country": "C25464"}
-        prop = allowed.get(field, field)
-        query = f"""
-        MATCH (product)
-        {self._CPSC_WHERE}
-        AND product.{prop} IS NOT NULL
-        RETURN DISTINCT product.{prop} AS value
-        """
-        return [r["value"] for r in self.run_query(query, {"search_term": search_term})]
+                   "category": "C93400", "nanomaterial": "NPO_1808",
+                   "country": "C25464", "uri": "uri"}
+        return self.distinct_graph_field("CPSC", search_term, allowed.get(field, field))
 
     def cpsc_country_breakdown(self, search_term: str, limit: int = 25) -> List[Dict]:
-        """Country distribution (C25464) among CPSC products matching a term.
-        Enables conjunctive 'products from <country> containing <material>' answers.
-        """
+        """Country distribution (C25464) among CPSC records matching a term."""
+        where = self._graph_where("product", "CPSC")
         query = f"""
         MATCH (product)
-        {self._CPSC_WHERE}
+        {where}
         AND product.C25464 IS NOT NULL
         WITH product.C25464 AS country, count(*) AS count
         RETURN country, count ORDER BY count DESC LIMIT $limit
@@ -170,13 +223,18 @@ class NanotoxicologyRAG:
         return self.run_query(query, {"search_term": search_term, "limit": limit})
 
     def distinct_niosh_labels(self, search_term: str) -> List[str]:
-        query = f"""
-        MATCH (assay)
-        {self._NIOSH_WHERE}
-        AND assay.label IS NOT NULL
-        RETURN DISTINCT assay.label AS value
-        """
-        return [r["value"] for r in self.run_query(query, {"search_term": search_term})]
+        return self.distinct_graph_field("NIOSH", search_term, "label")
+
+    def distinct_nkb_materials(self, search_term: str) -> List[str]:
+        mats = self.distinct_graph_field("NKB", search_term, "NPO_1808")
+        labs = self.distinct_graph_field("NKB", search_term, "label")
+        seen, out = set(), []
+        for v in mats + labs:
+            key = str(v).lower()
+            if v and key not in seen:
+                seen.add(key)
+                out.append(v)
+        return out
 
     def _deduplicate_by_uri(self, items: List[Dict]) -> List[Dict]:
         seen = set()
@@ -259,6 +317,13 @@ Return ONLY valid JSON with these keys:
         search with 0-match lookups and confuse downstream answering.
         """
         seen, out = set(), []
+
+        def _add(term: str):
+            key = term.lower()
+            if len(term) >= 2 and key not in seen:
+                seen.add(key)
+                out.append(term)
+
         for grp in groups:
             for t in (grp or []):
                 t = str(t).strip().strip(".,;:\"'")
@@ -267,12 +332,15 @@ Return ONLY valid JSON with these keys:
                 words = t.split()
                 if len(words) > 3:
                     continue  # free-text phrase, not an entity keyword
-                if all(w.lower() in cls._GENERIC_TOKENS for w in words):
+                non_generic = [w for w in words if w.lower() not in cls._GENERIC_TOKENS]
+                if not non_generic:
                     continue  # nothing but generic filler
-                key = t.lower()
-                if key not in seen:
-                    seen.add(key)
-                    out.append(t)
+                _add(t)
+                # Also search the meaningful remainder so an over-specific phrase
+                # like "silver nanoparticles" still matches records stored as
+                # "Silver" (addresses the keyword-granularity failure mode).
+                if len(non_generic) < len(words):
+                    _add(" ".join(non_generic))
         return out
 
     def retrieve_relevant_data(self, analysis: Dict[str, List[str]]) -> Dict[str, Any]:
@@ -284,20 +352,25 @@ Return ONLY valid JSON with these keys:
         term returns nothing.
         """
         results: Dict[str, Any] = {
-            "cpsc_products": [], "niosh_assays": [], "combined_data": [],
-            "nanomaterial_stats": [], "match_counts": {},
+            "cpsc_products": [], "niosh_assays": [], "nkb_materials": [], "combined_data": [],
+            "nanomaterial_stats": [], "match_counts": {}, "entity_type_counts": {},
             "distinct_values": {"manufacturers": [], "product_types": [], "nanomaterials": [],
-                                "product_uris": [], "assay_names": [], "assay_uris": []},
+                                "product_uris": [], "assay_names": [], "assay_uris": [],
+                                "nkb_materials": [], "niosh_materials": [], "nkb_measurements": []},
             "country_breakdown": {},
-            "search_terms": {"cpsc": [], "niosh": []},
+            "search_terms": {"cpsc": [], "niosh": [], "nkb": [], "all": []},
         }
 
-        cpsc_terms = self._clean_terms(analysis.get("nanomaterials"), analysis.get("products"))
-        niosh_terms = self._clean_terms(analysis.get("assays"), analysis.get("targets"))
-        # Cross-store failsafe terms: also try the "other" bucket if a store gets nothing.
-        all_terms = self._clean_terms(cpsc_terms, niosh_terms,
-                                      analysis.get("exposure_routes"), analysis.get("targets"))
-        results["search_terms"] = {"cpsc": cpsc_terms, "niosh": niosh_terms}
+        # Same cleaned terms are sent to every graph so a material question
+        # also hits NIOSH/NKB and an assay question also hits CPSC/NKB.
+        # Exposure/target words (skin, lung, dermal) are too generic and
+        # flood unrelated products, so they are not used as search terms.
+        all_terms = self._clean_terms(
+            analysis.get("nanomaterials"), analysis.get("products"),
+            analysis.get("assays"),
+        )
+        results["search_terms"] = {"cpsc": all_terms, "niosh": all_terms,
+                                   "nkb": all_terms, "all": all_terms}
 
         def _safe(fn, *a, default=None):
             try:
@@ -306,14 +379,20 @@ Return ONLY valid JSON with these keys:
                 logger.warning("retrieval sub-query failed: %s", e)
                 return default if default is not None else []
 
-        # ---- CPSC products (case-insensitive), with counts + distinct values ----
         cpsc_uris, mfrs, ptypes, nanos = set(), set(), set(), set()
-        for term in (cpsc_terms or all_terms):
-            rows = _safe(self.query_cpsc_products, term)
+        assay_uris, assay_names, niosh_mats = set(), set(), set()
+        nkb_mats, nkb_meas = set(), set()
+
+        for term in all_terms:
+            counts: Dict[str, int] = {}
+            type_counts: Dict[str, List[Dict]] = {}
+
+            # CPSC — all entity types (mostly Product)
+            rows = _safe(self.query_graph, "CPSC", term)
             results["cpsc_products"].extend(rows)
-            cnt = _safe(self.count_cpsc_products, term, default=0)
-            results["match_counts"].setdefault(term, {})["cpsc_products"] = cnt
-            if cnt:
+            counts["cpsc"] = _safe(self.count_graph, "CPSC", term, default=0)
+            if counts["cpsc"]:
+                type_counts["CPSC"] = _safe(self.count_graph_by_label, "CPSC", term, default=[])
                 mfrs.update(_safe(self.distinct_cpsc_field, term, "manufacturer"))
                 ptypes.update(_safe(self.distinct_cpsc_field, term, "product_type"))
                 nanos.update(_safe(self.distinct_cpsc_field, term, "nanomaterial"))
@@ -322,16 +401,29 @@ Return ONLY valid JSON with these keys:
                 if cb:
                     results["country_breakdown"][term] = {r["country"]: r["count"] for r in cb}
 
-        # ---- NIOSH assays (case-insensitive), with counts + distinct labels ----
-        assay_uris, assay_names = set(), set()
-        for term in (niosh_terms or all_terms):
-            rows = _safe(self.query_niosh_assays, term)
+            # NIOSH — Assay, SubjectOfInvestigation, EFO materials, measurements, ...
+            rows = _safe(self.query_graph, "NIOSH", term)
             results["niosh_assays"].extend(rows)
-            cnt = _safe(self.count_niosh_assays, term, default=0)
-            results["match_counts"].setdefault(term, {})["niosh_assays"] = cnt
-            if cnt:
+            counts["niosh"] = _safe(self.count_graph, "NIOSH", term, default=0)
+            if counts["niosh"]:
+                type_counts["NIOSH"] = _safe(self.count_graph_by_label, "NIOSH", term, default=[])
                 assay_names.update(_safe(self.distinct_niosh_labels, term))
+                assay_names.update(_safe(self.distinct_graph_field, "NIOSH", term, "type"))
+                niosh_mats.update(_safe(self.distinct_graph_field, "NIOSH", term, "C93410"))
                 assay_uris.update(r["uri"] for r in rows if r.get("uri"))
+
+            # NKB — Product, Assay, NPO_1680 measurements, media, publications, ...
+            rows = _safe(self.query_graph, "NKB", term)
+            results["nkb_materials"].extend(rows)
+            counts["nkb"] = _safe(self.count_graph, "NKB", term, default=0)
+            if counts["nkb"]:
+                type_counts["NKB"] = _safe(self.count_graph_by_label, "NKB", term, default=[])
+                nkb_mats.update(_safe(self.distinct_nkb_materials, term))
+                nkb_meas.update(_safe(self.distinct_graph_field, "NKB", term, "C42614")[:40])
+
+            results["match_counts"][term] = counts
+            if type_counts:
+                results["entity_type_counts"][term] = type_counts
 
         results["distinct_values"] = {
             "manufacturers": sorted(x for x in mfrs if x),
@@ -340,13 +432,18 @@ Return ONLY valid JSON with these keys:
             "product_uris": sorted(cpsc_uris),
             "assay_names": sorted(x for x in assay_names if x),
             "assay_uris": sorted(assay_uris),
+            "nkb_materials": sorted(x for x in nkb_mats if x),
+            "niosh_materials": sorted(x for x in niosh_mats if x),
+            "nkb_measurements": sorted(x for x in nkb_meas if x),
         }
 
         # ---- Failsafe: nothing matched -> broad retrieval so the LLM has context ----
-        if not results["cpsc_products"] and not results["niosh_assays"]:
+        if (not results["cpsc_products"] and not results["niosh_assays"]
+                and not results["nkb_materials"]):
             logger.info("no term matches; using broad failsafe retrieval")
-            results["cpsc_products"] = _safe(self.query_cpsc_products, None)  # all (up to limit)
-            results["niosh_assays"] = _safe(self.query_niosh_assays, None)
+            results["cpsc_products"] = _safe(self.query_graph, "CPSC", None)
+            results["niosh_assays"] = _safe(self.query_graph, "NIOSH", None)
+            results["nkb_materials"] = _safe(self.query_graph, "NKB", None)
 
         # ---- Nanomaterial distribution (always useful, e.g. 'most common') ----
         results["nanomaterial_stats"] = _safe(lambda: self.run_query("""
@@ -376,6 +473,7 @@ Return ONLY valid JSON with these keys:
 
         results["cpsc_products"] = self._deduplicate_by_uri(results["cpsc_products"])
         results["niosh_assays"] = self._deduplicate_by_uri(results["niosh_assays"])
+        results["nkb_materials"] = self._deduplicate_by_uri(results["nkb_materials"])
         return results
 
     def format_results_for_context(self, results: Dict[str, Any]) -> str:
@@ -387,16 +485,36 @@ Return ONLY valid JSON with these keys:
         # terms (from noisy LLM keyword extraction) cannot mislead the answer.
         match_counts = results.get("match_counts") or {}
         shown_counts = {t: c for t, c in match_counts.items()
-                        if (c.get("cpsc_products") or 0) > 0 or (c.get("niosh_assays") or 0) > 0}
+                        if (c.get("cpsc") or c.get("cpsc_products") or 0) > 0
+                        or (c.get("niosh") or c.get("niosh_assays") or 0) > 0
+                        or (c.get("nkb") or c.get("nkb_matches") or 0) > 0}
         if shown_counts:
             context += "## Exact Match Counts (authoritative; use these for counting questions)\n\n"
             for term, c in shown_counts.items():
                 parts = []
-                if c.get("cpsc_products"):
-                    parts.append(f"{c['cpsc_products']} CPSC products")
-                if c.get("niosh_assays"):
-                    parts.append(f"{c['niosh_assays']} NIOSH assays")
-                context += f"- '{term}': " + ", ".join(parts) + " (case-insensitive match)\n"
+                n_cpsc = c.get("cpsc") or c.get("cpsc_products") or 0
+                n_nkb = c.get("nkb") or c.get("nkb_matches") or 0
+                n_niosh = c.get("niosh") or c.get("niosh_assays") or 0
+                if n_cpsc:
+                    parts.append(f"{n_cpsc} CPSC records")
+                if n_nkb:
+                    parts.append(f"{n_nkb} NKB records")
+                if n_niosh:
+                    parts.append(f"{n_niosh} NIOSH records")
+                context += f"- '{term}': " + ", ".join(parts) + " (all entity types, case-insensitive)\n"
+            context += "\n"
+
+        type_counts = results.get("entity_type_counts") or {}
+        if type_counts:
+            context += "## Matching entity types by graph\n\n"
+            for term, by_graph in type_counts.items():
+                bits = []
+                for g, rows in by_graph.items():
+                    shown = ", ".join(f"{r['entity_type']}={r['count']}" for r in (rows or [])[:6])
+                    if shown:
+                        bits.append(f"{g}: {shown}")
+                if bits:
+                    context += f"- '{term}': " + " | ".join(bits) + "\n"
             context += "\n"
 
         # Full distinct-value lists (complete, not capped) for list questions.
@@ -412,8 +530,11 @@ Return ONLY valid JSON with these keys:
                 s += f", ... (+{len(vals) - cap} more)"
             return s + "\n\n"
         context += _list_section("Manufacturers of matching products", "manufacturers")
-        context += _list_section("Matching nanomaterial labels", "nanomaterials")
-        context += _list_section("Matching assay endpoints", "assay_names")
+        context += _list_section("Matching CPSC nanomaterial labels", "nanomaterials")
+        context += _list_section("Matching NKB material/knowledge labels", "nkb_materials")
+        context += _list_section("Matching NKB measurement/parameter names", "nkb_measurements")
+        context += _list_section("Matching NIOSH material IDs", "niosh_materials")
+        context += _list_section("Matching assay / endpoint labels", "assay_names")
 
         # Country distribution (for 'products from <country>' style questions).
         cb = results.get("country_breakdown") or {}
@@ -425,10 +546,15 @@ Return ONLY valid JSON with these keys:
             context += "\n"
 
         if results.get("cpsc_products"):
-            context += "## Consumer Products containing Nanomaterials\n\n"
+            context += "## CPSC records (sample)\n\n"
             for i, product in enumerate(results["cpsc_products"][:10], 1):
-                context += f"{i}. Product: {product.get('product_type', 'Unknown')}\n"
+                labs = [l for l in (product.get("node_labels") or []) if l != "Resource"]
+                context += f"{i}. {product.get('name') or product.get('product_type') or 'Record'}"
+                if labs:
+                    context += f" [{'/'.join(labs)}]"
+                context += "\n"
                 context += f"   Nanomaterial: {product.get('nanomaterial', 'Not specified')}\n"
+                context += f"   Product type: {product.get('product_type', 'Not specified')}\n"
                 context += f"   Manufacturer: {product.get('manufacturer', 'Not specified')}\n"
                 context += f"   Country: {product.get('country', 'Not specified')}\n"
                 context += f"   Category: {product.get('category', 'Not specified')}\n\n"
@@ -450,15 +576,42 @@ Return ONLY valid JSON with these keys:
             context += "\n"
 
         if results.get("niosh_assays"):
-            context += "## Toxicology Assay Information\n\n"
+            context += "## NIOSH records (sample; all entity types)\n\n"
             for i, assay in enumerate(results["niosh_assays"][:10], 1):
-                context += f"{i}. Assay: {assay.get('name', 'Unknown')}\n"
-                context += f"   Description: {assay.get('description', 'Not specified')}\n"
+                labs = [l for l in (assay.get("node_labels") or []) if l != "Resource"]
+                context += f"{i}. {assay.get('name') or assay.get('type') or assay.get('material_id') or 'Record'}"
+                if labs:
+                    context += f" [{'/'.join(labs)}]"
+                context += "\n"
+                if assay.get("description"):
+                    context += f"   Description: {assay.get('description')}\n"
+                if assay.get("type"):
+                    context += f"   Type: {assay.get('type')}\n"
+                if assay.get("material_id"):
+                    context += f"   Material ID: {assay.get('material_id')}\n"
                 if assay.get("value"):
-                    context += f"   Value: {assay.get('value')}"
-                    if assay.get("unit"):
-                        context += f" {assay.get('unit')}"
-                    context += "\n"
+                    unit = f" {assay.get('unit')}" if assay.get("unit") else ""
+                    context += f"   Value: {assay.get('value')}{unit}\n"
+                context += "\n"
+
+        if results.get("nkb_materials"):
+            context += "## NKB records (sample; all entity types)\n\n"
+            for i, rec in enumerate(results["nkb_materials"][:10], 1):
+                labs = [l for l in (rec.get("node_labels") or []) if l != "Resource"]
+                context += f"{i}. {rec.get('name') or rec.get('nanomaterial') or rec.get('measurement') or 'Record'}"
+                if labs:
+                    context += f" [{'/'.join(labs)}]"
+                context += "\n"
+                if rec.get("nanomaterial"):
+                    context += f"   Nanomaterial: {rec.get('nanomaterial')}\n"
+                if rec.get("manufacturer"):
+                    context += f"   Manufacturer: {rec.get('manufacturer')}\n"
+                if rec.get("measurement"):
+                    context += f"   Measurement: {rec.get('measurement')}\n"
+                if rec.get("assay_type"):
+                    context += f"   Assay type: {rec.get('assay_type')}\n"
+                if rec.get("medium"):
+                    context += f"   Medium: {str(rec.get('medium'))[:160]}\n"
                 context += "\n"
 
         if results.get("combined_data"):
@@ -482,14 +635,18 @@ Return ONLY valid JSON with these keys:
 
 The context below contains AUTHORITATIVE, precomputed facts retrieved directly
 from the database. Trust and use these numbers exactly. Specifically:
-- "Exact Match Counts" gives the true number of matching records. For a
-  "how many ..." question, state that exact number as the answer.
+- "Exact Match Counts" gives the true number of matching records in each
+  source graph (CPSC, NKB, NIOSH). For a "how many ..." question, state
+  those exact numbers as the answer. Do not collapse graphs unless asked.
 - "Country distribution of matching products" gives per-country counts. For an
   existence question like "are there any products from <country> that contain
   <material>?", look up that country: if its count is greater than 0, answer
   YES and give the count; if the country is absent or 0, answer NO.
-- Distinct-value lists (manufacturers, nanomaterials, assay endpoints) are
-  COMPLETE for the matched set; use them to enumerate examples.
+- Distinct-value lists (manufacturers, nanomaterials, NKB labels,
+  NIOSH material IDs, assay endpoints) are COMPLETE for the matched set;
+  use them to enumerate examples.
+- "Matching entity types by graph" says which node types hit (Product,
+  Assay, measurement records, etc.). Use those counts; do not invent types.
 
 Grounding rules (important):
 - Base every factual claim on the context above. Do NOT invent numbers, product
@@ -519,7 +676,9 @@ Provide a clear answer that:
 
         results = self.retrieve_relevant_data(analysis)
         if self.verbose:
-            print(f"Retrieved {len(results['cpsc_products'])} products and {len(results['niosh_assays'])} assays")
+            print(f"Retrieved CPSC={len(results['cpsc_products'])} "
+                  f"NIOSH={len(results['niosh_assays'])} "
+                  f"NKB={len(results['nkb_materials'])}")
 
         context = self.format_results_for_context(results)
         messages = [
@@ -562,9 +721,13 @@ Provide a clear answer that:
             "product_types": _pref("product_types", [str(p.get("product_type")) for p in products if p.get("product_type")]),
             "assay_uris": _pref("assay_uris", [a.get("uri") for a in assays if a.get("uri")]),
             "assay_names": _pref("assay_names", [str(a.get("name")) for a in assays if a.get("name")]),
+            "nkb_materials": dv.get("nkb_materials", []),
+            "niosh_materials": dv.get("niosh_materials", []),
             "n_products": len(products),
             "n_assays": len(assays),
+            "n_nkb": len(results.get("nkb_materials", [])),
             "match_counts": results.get("match_counts", {}),
+            "entity_type_counts": results.get("entity_type_counts", {}),
         }
 
         context = self.format_results_for_context(results)
